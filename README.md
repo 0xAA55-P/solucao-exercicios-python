@@ -30,7 +30,7 @@ Avancado/                   # Exercícios Avançados
 git clone https://github.com/0xAA55-P/solucao-exercicios-python
 
 # acesse uma pasta e execute um exercício
-cd Simples/Listas
+cd Basico/Listas
 python 001.py
 ```
 
