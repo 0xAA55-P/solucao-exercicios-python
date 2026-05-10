@@ -41,28 +41,18 @@ def jogo(numero: int) -> None:
     # False: Encerrou o jogo por tentativas demais
 
     while True:
-        try:
-            chute = int(input("Chute: "))
+        chute = int(input("Chute: "))
+        tentativas -= 1
 
-            if chute > numero:
-                print("Muito alto!")
-            elif chute < numero:
-                print("Muito baixo!")
-            else:
-                break # acertou
+        if chute > numero:
+            print("Muito alto!")
+        elif chute < numero:
+            print("Muito baixo!")
+        else:
+            break # acertou
 
-            tentativas -= 1
-
-            if tentativas < 0:
-                print("Tentativas excedidas!")
-                fim_por_vitoria = False
-                break
-
-        except ValueError:
-            print("\nValor inválido!\n")
-
-        except KeyboardInterrupt:
-            print("\nFim da partida.\n")
+        if tentativas < 0:
+            print("Tentativas excedidas!")
             fim_por_vitoria = False
             break
 
@@ -74,12 +64,20 @@ def jogo(numero: int) -> None:
         print(f"Pontuação: {pontuacao}\n")
 
 def main() -> None:
-    numero: int = randint(0, 10)
-    jogo(numero)
+    while True:
+        try:
+            numero: int = randint(0, 10)
+            jogo(numero)
 
-    while (_ := input("Continuar? (S/N): ").strip().upper()) != "N":
-        numero: int = randint(0, 10)
-        jogo(numero)
+            if input("Continuar? (S/N): ").strip().upper() == "N":
+                break
+
+        except ValueError:
+            print("\nValor inválido!\n")
+
+        except KeyboardInterrupt:
+            print("\nFim da partida.\n")
+            break
 
 if __name__ == "__main__":
     main()
