@@ -6,6 +6,8 @@ Desenvolva um jogo de acerte o número, onde:
 
 from random import randint
 
+#PONTUACAO = 0
+
 def aumentar_pontuacao(tentativas: int) -> int:
     """Aumenta a pontuação com base nas tentativas
 
@@ -13,19 +15,11 @@ def aumentar_pontuacao(tentativas: int) -> int:
         tentativas: As tentativas antes de acertar
 
     Returns:
-        pontuacao = 100 se tentativas == 5
-        pontuacao = 10 se tentativas == 0
-        pontuacao = 0 caso nenhum caso acima atenda
+        tentativas * 20
+        20: Pontos por tentativa
     """
 
-    pontuacao: int = 0
-
-    if tentativas == 5:
-        pontuacao += 100
-    elif tentativas == 0:
-        pontuacao += 10
-
-    return pontuacao
+    return tentativas * 20
 
 def jogo(numero: int) -> None:
     """Inicio do jogo
@@ -42,6 +36,10 @@ def jogo(numero: int) -> None:
 
     while True:
         chute = int(input("Chute: "))
+
+        if chute < 0 or chute > 10:
+            raise ValueError()
+
         tentativas -= 1
 
         if chute > numero:
@@ -56,7 +54,7 @@ def jogo(numero: int) -> None:
             fim_por_vitoria = False
             break
 
-    pontuacao = aumentar_pontuacao(tentativas)
+        pontuacao: int = aumentar_pontuacao(tentativas)
 
     if fim_por_vitoria:
         print("\nAcertou!")
@@ -73,7 +71,7 @@ def main() -> None:
                 break
 
         except ValueError:
-            print("\nValor inválido!\n")
+            print("\nValor inválido! Tente um inteiro entre 0-10.\n")
 
         except KeyboardInterrupt:
             print("\nFim da partida.\n")
